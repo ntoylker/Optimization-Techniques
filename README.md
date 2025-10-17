@@ -120,3 +120,54 @@ The analysis demonstrated the high sensitivity of optimization algorithms to the
     * The **constant step size** was the least reliable and often failed to converge.
     * The **optimal step size** strategy (minimizing $\gamma$) was very fast and effective, especially for escaping local minima.
     * The **Armijo rule** proved to be the most reliable, guaranteeing convergence and offering a good balance between speed and stability. It is particularly useful for complex or high-dimensional problems.
+
+---
+
+# 3. Steepest Descent with and without Projection
+
+The `work3` folder contains a MATLAB project analyzing the Steepest Descent method for both unconstrained and constrained optimization problems.
+
+
+## 📜 Description
+
+This assignment focuses on minimizing a quadratic function, $f(x, y) = \frac{1}{3}x^2 + 3y^2$. First, the standard **Steepest Descent** method is implemented, and its convergence is analytically studied with respect to the step size $\gamma$. Second, the **Projected Steepest Descent** method is used to minimize the same function subject to box constraints.
+
+## ⚙️ Algorithms Implemented
+
+1.  **Steepest Descent (Unconstrained)**: The classic gradient descent algorithm where the next point is found by moving in the direction of the negative gradient. The analysis heavily focuses on the impact of a constant step size $\gamma$ on the algorithm's stability and convergence speed.
+
+2.  **Projected Steepest Descent**: An extension of gradient descent for constrained problems. After a standard gradient step, the resulting point is "projected" back onto the feasible set if it falls outside. This ensures that all iterates remain valid. The algorithm was applied to the feasible set defined by the box constraints: $-10 \le x \le 5$ and $-8 \le y \le 12$.
+
+## 📈 Function and Constraints
+
+* **Function**: $f(x, y) = \frac{1}{3}x^2 + 3y^2$
+* **Constraints for Projection**: A convex set $X$ where $-10 \le x \le 5$ and $-8 \le y \le 12$.
+
+## 🚀 How to Run
+
+1.  Ensure you have MATLAB installed.
+2.  Clone this repository to your local machine.
+3.  Open MATLAB and navigate to the `work3` folder.
+4.  Run the scripts to see the analysis for each method.
+
+## 🗂️ Project Structure
+
+* `t_thema_1.m`: Implements and analyzes the **Unconstrained Steepest Descent** method for various step sizes.
+* `t_thema_2.m`: Implements and analyzes the **Projected Steepest Descent** method from different starting points.
+* `Texnikes_3_NT_10718.pdf`: The detailed project report (in Greek) with mathematical analysis, plots, and conclusions.
+
+## 📊 Results & Conclusions
+
+The project highlights the critical importance of parameter selection for gradient-based methods and the utility of projection for handling constraints.
+
+### Key Findings
+
+* **Unconstrained Steepest Descent & Stability**:
+    * The stability of the method was analytically determined to depend on the step size $\gamma$. For this specific function, the algorithm is guaranteed to converge only if **$0 \le \gamma < 1/3$**.
+    * For $\gamma$ values within the stable range (e.g., 0.1, 0.3), the algorithm converged successfully. The closer $\gamma$ was to the upper bound of $1/3$, the more oscillatory the behavior became.
+    * For $\gamma$ values outside the stable range (e.g., $\gamma > 1/3$), the algorithm diverged, with the iterates going to infinity.
+
+* **Projected Steepest Descent**:
+    * The projection method successfully **prevents divergence** by ensuring all points remain within the feasible box, even with parameter choices that would cause the unconstrained method to fail.
+    * However, staying within the feasible set **does not guarantee convergence** to the minimum. For certain parameters, the algorithm was observed to oscillate indefinitely between points inside the box without reaching the minimum.
+    * The convergence behavior was highly dependent on the choice of parameters ($\gamma$ and $s$) and the starting point. By carefully selecting these parameters, it was possible to achieve very fast convergence. For instance, tuning the product $s_k \gamma_k$ could make a variable converge to its optimal value in a single step once inside the feasible region.
